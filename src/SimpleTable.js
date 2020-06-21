@@ -34,16 +34,16 @@ export default function SimpleTable() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Git 메시지</TableCell>
+            <TableCell>Git commit 메시지</TableCell>
             <TableCell align="right">작성자</TableCell>
             <TableCell align="right">날짜</TableCell>
             <TableCell align="right">Hash</TableCell>
-            <TableCell align="right">Team</TableCell>
+            <TableCell align="right">팀명</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {rows.map((row, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>

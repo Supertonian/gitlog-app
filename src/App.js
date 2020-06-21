@@ -15,9 +15,11 @@ class TeamSelector extends React.Component {
   render() {
     return (
       <ButtonGroup className='buttonGroup' color="primary" aria-label="outlined primary button group">
-      <Button>One</Button>
-      <Button>Two</Button>
-      <Button>Three</Button>
+      <Button>전체</Button>
+      <Button>A팀</Button>
+      <Button>B팀</Button>
+      <Button>C팀</Button>
+      <Button>D팀</Button>
     </ButtonGroup>
       );
   }
