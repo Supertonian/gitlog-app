@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import ColorsTimeline from './ColorsTimeline';
-
-function Buttons({team}) {
-  return <Button color='primary'>{ team }</Button>;
-}
+import SimpleTable from './SimpleTable';
+import Divider from '@material-ui/core/Divider';
 
 class TeamSelector extends React.Component {
   state = {
@@ -13,83 +14,29 @@ class TeamSelector extends React.Component {
   }
   render() {
     return (
-    <div>
-      <Buttons team='calendar' />
-      <Buttons team='talk' />
-      <Buttons team='drive' />
-      </div>
+      <ButtonGroup className='buttonGroup' color="primary" aria-label="outlined primary button group">
+      <Button>One</Button>
+      <Button>Two</Button>
+      <Button>Three</Button>
+    </ButtonGroup>
       );
-  }
-}
-
-const logs = [
-  {
-    title: 'Issue #123 [git] hi',
-    author: 'Changyun Lee',
-    date: '2020-06-22',
-    hash: 'ffffff'
-  },
-  {
-    title: 'bug #555 [git] hi',
-    author: 'Changyun Lee',
-    date: '2020-06-21',
-    hash: 'sdfads'
-  },
-  {
-    title: 'Issue #111 [git] hi',
-    author: 'Changyun Lee',
-    date: '2020-06-20',
-    hash: 'sadfsdf'
-  },
-  {
-    title: 'Issue #110 [git] hi',
-    author: 'Changyun Lee',
-    date: '2020-06-18',
-    hash: 'asdfds'
-  },
-];
-
-class GitLog extends React.Component {
-  state = {}
-
-  render() {
-    return (
-    <table>
-      <thead>
-        <tr>
-          <th>메시지</th>
-          <th>작성자</th>
-          <th>날짜</th>
-          <th>Hash</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          logs.map((log, index) => {
-            return (<tr key={index}>
-              <td>{log.title}</td>
-              <td>{log.author}</td>
-              <td>{log.date}</td>
-              <td>{log.hash}</td>
-              </tr>);
-          })
-        }
-      </tbody>
-    </table>
-    );
   }
 }
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <React.Fragment>
+      <CssBaseline />
+      <Container fixed>
+        <h2>Git Log App</h2>
+        <Divider />
         <TeamSelector />
-        <GitLog />
+        <SimpleTable />
         <ColorsTimeline />
-      </header>
-    </div>
+      </Container>
+    </React.Fragment>
   );
 }
 
 export default App;
+
