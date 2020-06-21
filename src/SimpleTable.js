@@ -6,8 +6,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import data from './test.json';
 
+function ExtractType({ subject }) {
+  let type = '';
+  if (subject.includes('feat')) {
+    type = 'feat';
+  } else if (subject.includes('bugfix')) {
+    type = 'bugfix';
+  }
+  return <TableCell align="right">{ type }</TableCell>;
+}
 export default class SimpleTable extends React.Component {
   constructor() {
     super();
@@ -22,9 +33,29 @@ export default class SimpleTable extends React.Component {
     });
   }
 
+  onAllClick() {
+    this.setState({
+      rows: data,
+    });
+  }
+
+  onAClick() {
+    this.setState({
+      rows: [],
+    });
+  }
+
   render() {
     return (
+      
       <TableContainer component={Paper}>
+        <ButtonGroup className='buttonGroup' color="primary" aria-label="outlined primary button group">
+          <Button onClick={ () => this.onAllClick() }>전체</Button>
+          <Button onClick={ () => this.onAClick() }>A팀</Button>
+          <Button>B팀</Button>
+          <Button>C팀</Button>
+          <Button>D팀</Button>
+         </ButtonGroup>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -32,7 +63,7 @@ export default class SimpleTable extends React.Component {
               <TableCell align="right">작성자</TableCell>
               <TableCell align="right">날짜</TableCell>
               <TableCell align="right">Hash</TableCell>
-              <TableCell align="right">팀명</TableCell>
+              <TableCell align="right">Type</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -43,9 +74,9 @@ export default class SimpleTable extends React.Component {
               {row.subject}
             </TableCell>
             <TableCell align="right">{row.authorName}</TableCell>
-            <TableCell align="right">{row.authorDateRel}</TableCell>
+            <TableCell align="right">{row.authorDate.split(' +0900')[0]}</TableCell>
             <TableCell align="right">{row.abbrevHash}</TableCell>
-            <TableCell align="right">{row.abbrevHash}</TableCell>
+            <ExtractType subject={row.subject} />
           </TableRow>
         ))
       }

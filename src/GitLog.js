@@ -4,7 +4,7 @@ const options = {
   repo: __dirname,
   number: 20,
 //   author: "Changyun Lee",
-  fields: ["hash", "abbrevHash", "subject", "authorName", "authorDateRel"],
+  fields: ["authorEmail", "abbrevHash", "subject", "authorName", "authorDate"],
   execOptions: { maxBuffer: 1000 * 1024 },
 };
 
