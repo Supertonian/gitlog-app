@@ -2,7 +2,9 @@
   "repo": [
     {
       "address": "git@github.com:ZeroStrength/gitlog-app.git",
-      "branch": ["master"]
+      "name": "gitlog-app",
+      "branch": "master",
+      "httpAddress": "https://github.com/ZeroStrength/gitlog-app/"
     }
   ]
 }
