@@ -5,14 +5,24 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+
+<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/semantic.min.js"></script>
+
     <title>깃 알리미</title>
   </head>
   <body>
     <div id="log"></div>
 
-    <button id="notiCheck">알림 테스트</button>
+    <button id="notiCheck" class="ui secondary button">
+      알림 테스트
+    </button>
 
     <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    <script type="module" src="./renderer.js"></script>
   </body>
 </html>
