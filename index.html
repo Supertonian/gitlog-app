@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <title>깃 알리미</title>
   </head>
   <body>
-    <h3>설정</h3>
-	<hr>
+    <div id="log"></div>
 
-	<h3>Log</h3>
-	
-	
-	<button id="notiCheck">알림 테스트</button>
+    <button id="notiCheck">알림 테스트</button>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>

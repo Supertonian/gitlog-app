@@ -19,6 +19,7 @@
     "electron-packager": "^15.0.0"
   },
   "dependencies": {
+    "gitlog": "^4.0.0",
     "simple-git": "^2.11.0"
   }
 }
