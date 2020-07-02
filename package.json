@@ -10,9 +10,9 @@
   "keywords": [
     "Electron",
     "Git",
-    "log",
+    "log"
   ],
-  "author": "GitHub",
+  "author": "Changyun Lee",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^9.0.5",
