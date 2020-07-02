@@ -1,0 +1,24 @@
+{
+  "name": "gitlog-app",
+  "version": "1.0.0",
+  "description": "Gitlog app with notification",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/ZeroStrength/gitlog-app",
+  "keywords": [
+    "Electron",
+    "Git",
+    "log",
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-packager": "^15.0.0"
+  },
+  "dependencies": {
+    "simple-git": "^2.11.0"
+  }
+}

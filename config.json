@@ -1,0 +1,8 @@
+{
+  "repo": [
+    {
+      "address": "git@github.com:ZeroStrength/gitlog-app.git",
+      "branch": ["master"]
+    }
+  ]
+}
