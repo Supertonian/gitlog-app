@@ -1,4 +1,5 @@
 const git = require('simple-git');
+const fs = require('fs');
 const gitlog = require('gitlog').default;
 const { BrowserWindow } = require('electron').remote;
 const config = require('./config.json');
@@ -82,20 +83,33 @@ function saveLog(repo, branch, url) {
   setState(repo, branch, commits, url);
 }
 
-function fetchFromRepo() {
-  config.repo.forEach((repo) => {
-    git(`./${repo.name}/`)
-      .silent(true)
-      .pull(repo.address, repo.branch)
-      .then(() => {
-        saveLog(repo.name, repo.branch, repo.httpAddress);
-      })
-      .catch((err) => console.error('failed: ', err));
-  });
+function fetchFromRepo(repo) {
+  git(`./${repo.name}/`)
+    .silent(true)
+    .pull(repo.address, repo.branch)
+    .then(() => {
+      saveLog(repo.name, repo.branch, repo.httpAddress);
+    })
+    .catch((err) => console.error('failed: ', err));
 }
 
-fetchFromRepo();
-setInterval(fetchFromRepo, 60 * 1000);
+function fetchAllFromRepo(repo) {
+  config.repo.forEach((item) => fetchFromRepo(item));
+}
+
+function cloneIfNotExists(repo) {
+  if (!fs.existsSync(repo.name)) {
+    git()
+      .silent(true)
+      .clone(repo.address)
+      .then(() => fetchFromRepo(repo))
+      .catch((err) => console.error('failed: ', err));
+  }
+}
+
+config.repo.forEach((repo) => cloneIfNotExists(repo));
+
+setInterval(fetchAllFromRepo, 60 * 1000);
 
 document.querySelector('#notiCheck').addEventListener('click', () => {
   const noti = new window.Notification('알림 테스트!', { body: '알림이 오는지 확인해보세요!' });
