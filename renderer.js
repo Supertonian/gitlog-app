@@ -22,8 +22,10 @@ function render() {
   function renderRepo(repo, branch, url) {
     const html = document.createElement('div');
 
-    const title = document.createElement('div');
-    title.innerHTML = `<span class="repoTitle">${repo}</span> <span class="repoBranch">${branch}</span>`;
+    const title = document.createElement('h1');
+    title.classList.add('ui');
+    title.classList.add('header');
+    title.innerHTML = `${repo} <div class="sub header">${branch}</div>`;
 
     html.append(title);
 
@@ -38,16 +40,17 @@ function render() {
         html.append(line);
       }
     }
-    html.append(document.createElement('hr'));
+    const divider = document.createElement('div');
+    divider.classList.add('ui');
+    divider.classList.add('divider');
+    html.append(divider);
+
     return html;
   }
   document.querySelector('#log').innerHTML = '';
   config.repo.forEach((item) => {
     document.querySelector('#log').append(renderRepo(item.name, item.branch, item.httpAddress));
   });
-
-  document.querySelectorAll('.repoTitle').forEach((item) => (item.style.color = 'red'));
-  document.querySelectorAll('.repoBranch').forEach((item) => (item.style.color = 'green'));
 }
 
 function setState(repo, branch, log, url) {
