@@ -49,7 +49,7 @@ function render() {
   }
   document.querySelector('#log').innerHTML = '';
   config.repo.forEach((item) => {
-    document.querySelector('#log').append(renderRepo(item.name, item.branch, item.httpAddress));
+    document.querySelector('#log').append(renderRepo(item.name, item.branch, item.http));
   });
 }
 
@@ -89,14 +89,14 @@ function saveLog(repo, branch, url) {
 function fetchFromRepo(repo) {
   git(`./${repo.name}/`)
     .silent(true)
-    .pull(repo.address, repo.branch)
+    .pull(repo.useSSH ? repo.ssh : repo.http, repo.branch)
     .then(() => {
-      saveLog(repo.name, repo.branch, repo.httpAddress);
+      saveLog(repo.name, repo.branch, repo.http);
     })
     .catch((err) => console.error('failed: ', err));
 }
 
-function fetchAllFromRepo(repo) {
+function fetchAllFromRepo() {
   config.repo.forEach((item) => fetchFromRepo(item));
 }
 
@@ -104,7 +104,7 @@ function cloneIfNotExists(repo) {
   if (!fs.existsSync(repo.name)) {
     git()
       .silent(true)
-      .clone(repo.address)
+      .clone(repo.useSSH ? repo.ssh : repo.http)
       .then(() => fetchFromRepo(repo))
       .catch((err) => console.error('failed: ', err));
   }
