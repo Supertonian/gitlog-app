@@ -1,7 +1,7 @@
 {
   "repo": [
     {
-      "ssh": "https://github.com/ZeroStrength/gitlog-app",
+      "ssh": "git@github.com:ZeroStrength/gitlog-app.git",
       "name": "gitlog-app",
       "branch": "master",
       "http": "https://github.com/ZeroStrength/gitlog-app/",
