@@ -107,6 +107,8 @@ function cloneIfNotExists(repo) {
       .clone(repo.useSSH ? repo.ssh : repo.http)
       .then(() => fetchFromRepo(repo))
       .catch((err) => console.error('failed: ', err));
+  } else {
+    fetchAllFromRepo();
   }
 }
 
