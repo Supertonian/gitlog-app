@@ -70,6 +70,7 @@ function setState(repo, branch, log, url) {
   }
   if (logs[repo][branch].length > 0) {
     let ind = 0;
+    const firstLogDate = new Date(log[0].authorDate);
     let thisDate;
     while (true) {
       const logC = log[ind];
@@ -89,7 +90,7 @@ function setState(repo, branch, log, url) {
       }
       ind += 1;
     }
-    lastUpdateDate[repo] = thisDate;
+    lastUpdateDate[repo] = firstLogDate;
   }
   logs[repo][branch] = log;
   render();
