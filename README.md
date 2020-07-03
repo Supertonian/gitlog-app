@@ -19,12 +19,12 @@ npm install
 # 실행
 npm start
 # 윈도우 exe로 만들고 싶을 때
-node_modules/electron-packager/bin/electron-packager.js . gitlog
+node node_modules/electron-packager/bin/electron-packager.js . gitlog
 ```
 
 ## 결과물
-![mainlayout](screenshots/mainlayout_v1.0.0.png)
 
+![mainlayout](screenshots/mainlayout_v1.0.0.png)
 
 ## License
 
