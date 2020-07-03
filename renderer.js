@@ -29,7 +29,7 @@ function render() {
 
     html.append(title);
 
-    if (logs[repo][branch]) {
+    if (logs[repo] && logs[repo][branch]) {
       let count = 0;
       let i = 0;
       while (count < 10) {
@@ -108,7 +108,7 @@ function fetchFromRepo(repo) {
     .then(() => {
       saveLog(repo.name, repo.branch, repo.http);
     })
-    .catch((err) => console.error('failed: ', err));
+    .catch((err) => console.error('failed to pull: ', err));
 }
 
 function fetchAllFromRepo() {
@@ -121,9 +121,9 @@ function cloneIfNotExists(repo) {
       .silent(true)
       .clone(repo.useSSH ? repo.ssh : repo.http)
       .then(() => fetchFromRepo(repo))
-      .catch((err) => console.error('failed: ', err));
+      .catch((err) => console.error('failed to clone: ', err));
   } else {
-    fetchAllFromRepo();
+    fetchFromRepo(repo);
   }
 }
 
