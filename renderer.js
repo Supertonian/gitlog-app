@@ -30,14 +30,21 @@ function render() {
     html.append(title);
 
     if (logs[repo][branch]) {
-      for (let i = 0; i < 10; i += 1) {
-        const line = document.createElement('div');
-        const aTag = document.createElement('a');
-        aTag.setAttribute('href', `${url}/commit/${logs[repo][branch][i].hash}`);
-        aTag.setAttribute('target', '_blank');
-        aTag.textContent = logs[repo][branch][i].subject;
-        line.append(aTag);
-        html.append(line);
+      let count = 0;
+      let i = 0;
+      while (count < 10) {
+        const { subject } = logs[repo][branch][i];
+        if (subject.indexOf('Merge branch') < 0) {
+          const line = document.createElement('div');
+          const aTag = document.createElement('a');
+          aTag.setAttribute('href', `${url}/commit/${logs[repo][branch][i].hash}`);
+          aTag.setAttribute('target', '_blank');
+          aTag.textContent = subject;
+          line.append(aTag);
+          html.append(line);
+          count += 1;
+        }
+        i += 1;
       }
     }
     const divider = document.createElement('div');
@@ -62,17 +69,25 @@ function setState(repo, branch, log, url) {
     logs[repo][branch] = [];
   }
   if (logs[repo][branch].length > 0) {
-    const thisDate = new Date(log[0].authorDate);
+    let ind = 0;
+    let thisDate;
+    while (true) {
+      const logC = log[ind];
+      thisDate = new Date(logC.authorDate);
 
-    if (thisDate - lastUpdateDate[repo] > 0) {
-      const noti = new window.Notification(log[1].subject, {
-        body: `${log[1].authorName}: ${log[1].authorDate}`,
-      });
-      noti.onclick = () => {
-        onNotiClick(url + '/commit/' + log[1].hash);
-      };
-      lastUpdateDate[repo] = thisDate;
+      if (thisDate - lastUpdateDate[repo] > 0 && logC.subject.indexOf('Merge branch') < 0) {
+        const noti = new window.Notification(logC.subject, {
+          body: `${logC.authorName}: ${logC.authorDate}`,
+        });
+        noti.onclick = () => {
+          onNotiClick(`${url}/commit/${logC.hash}`);
+        };
+      } else {
+        break;
+      }
+      ind += 1;
     }
+    lastUpdateDate[repo] = thisDate;
   }
   logs[repo][branch] = log;
   render();
@@ -114,7 +129,7 @@ function cloneIfNotExists(repo) {
 
 config.repo.forEach((repo) => cloneIfNotExists(repo));
 
-setInterval(fetchAllFromRepo, 60 * 1000);
+setInterval(fetchAllFromRepo, 3 * 60 * 1000);
 
 document.querySelector('#notiCheck').addEventListener('click', () => {
   const noti = new window.Notification('알림 테스트!', { body: '알림이 오는지 확인해보세요!' });
