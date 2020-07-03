@@ -1,10 +1,11 @@
 {
   "repo": [
     {
-      "address": "https://github.com/ZeroStrength/gitlog-app",
+      "ssh": "https://github.com/ZeroStrength/gitlog-app",
       "name": "gitlog-app",
       "branch": "master",
-      "httpAddress": "https://github.com/ZeroStrength/gitlog-app/"
+      "http": "https://github.com/ZeroStrength/gitlog-app/",
+      "useSSH": false
     }
   ]
 }
