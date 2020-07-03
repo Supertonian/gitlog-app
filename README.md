@@ -23,6 +23,8 @@ node_modules/electron-packager/bin/electron-packager.js . gitlog
 ```
 
 ## 결과물
+![mainlayout](screenshots/mainlayout_v1.0.0.png)
+
 
 ## License
 
