@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const tbody = document.createElement('tbody');
     const tr = document.createElement('tr');
 
-    ['커밋 메시지', '이름', '날짜'].forEach((thName) => {
+    ['종류', '커밋 메시지', '이름', '날짜'].forEach((thName) => {
       const th = document.createElement('th');
       th.textContent = thName;
       tr.append(th);
