@@ -2,11 +2,8 @@ import { utils } from './utils.js';
 const git = require('simple-git');
 const fs = require('fs');
 const gitlog = require('gitlog').default;
-const { BrowserWindow } = require('electron').remote;
-const moment = require('moment');
-const config = require('./config.json');
 
-moment.locale('ko');
+const config = require('./config.json');
 
 const logs = {};
 const options = {
@@ -17,50 +14,11 @@ const options = {
 };
 const lastUpdateDate = {};
 
-function onNotiClick(link) {
-  const childWindow = new BrowserWindow({ show: false, width: 1350, height: 900 });
-  childWindow.loadURL(link);
-
-  childWindow.once('ready-to-show', () => childWindow.show());
-}
-
 function render() {
-  function renderRepo(target, repo, branch, url) {
-    if (logs[repo] && logs[repo][branch]) {
-      let count = 0;
-      let i = 0;
-      while (count < 10) {
-        const { subject, authorName, authorDate, hash } = logs[repo][branch][i];
-        if (subject.indexOf('Merge branch') < 0) {
-          const line = document.createElement('tr');
-          const td = document.createElement('td');
-          td.textContent = subject;
-          td.addEventListener('click', () => onNotiClick(`${url}/commit/${hash}`));
-
-          const td1 = document.createElement('td');
-          td1.textContent = authorName;
-
-          const td2 = document.createElement('td');
-          td2.textContent = moment(authorDate).startOf('hour').fromNow();
-          td2.setAttribute('title', moment(authorDate).format('llll'));
-
-          line.append(td);
-          line.append(td1);
-          line.append(td2);
-
-          target.append(line);
-
-          count += 1;
-        }
-        i += 1;
-      }
-    }
-    return '';
-  }
   config.repo.forEach((item, index) => {
     const target = document.querySelector(`#log-table-${index} tbody`);
     target.innerHTML = '';
-    renderRepo(target, item.name, item.branch, item.http);
+    utils.renderRepo(target, { repo: item.name, branch: item.branch, url: item.http }, logs);
   });
 }
 
@@ -86,7 +44,7 @@ function setState(repo, branch, log, url) {
             body: `${logC.authorName}: ${logC.authorDate}`,
           });
           noti.onclick = () => {
-            onNotiClick(`${url}/commit/${logC.hash}`);
+            utils.onNotiClick(`${url}/commit/${logC.hash}`);
           };
         }
       } else {
