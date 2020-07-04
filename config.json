@@ -7,5 +7,12 @@
       "http": "https://github.com/ZeroStrength/gitlog-app/",
       "useSSH": false
     }
-  ]
+  ],
+  "features": {
+    "feat": { "list": ["feature:", "[feat]", "feat:", "feat :", "기능:"], "colorClass": "negative" },
+    "bugfix": { "list": ["bugfix:", "bugfix :", "fix:", "[bugfix]", "버그:"], "colorClass": "warning" },
+    "refactoring": { "list": ["refactoring:"], "colorClass": "positive" },
+    "etc": { "list": ["기타 :"], "colorClass": "" }
+  },
+  "team": []
 }
