@@ -3,6 +3,9 @@ const fs = require('fs');
 const gitlog = require('gitlog').default;
 const { BrowserWindow } = require('electron').remote;
 const config = require('./config.json');
+const moment = require('moment');
+
+moment.locale('ko');
 
 const logs = {};
 const options = {
@@ -37,7 +40,8 @@ function render() {
           td1.textContent = authorName;
 
           const td2 = document.createElement('td');
-          td2.textContent = authorDate;
+          td2.textContent = moment(authorDate).startOf('hour').fromNow();
+          td2.setAttribute('title', moment(authorDate).format('llll'));
 
           line.append(td);
           line.append(td1);
