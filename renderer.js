@@ -1,9 +1,10 @@
+import { utils } from './utils.js';
 const git = require('simple-git');
 const fs = require('fs');
 const gitlog = require('gitlog').default;
 const { BrowserWindow } = require('electron').remote;
-const config = require('./config.json');
 const moment = require('moment');
+const config = require('./config.json');
 
 moment.locale('ko');
 
@@ -101,14 +102,14 @@ function setState(repo, branch, log, url) {
 
 function saveLog(repo, branch, url) {
   const opt = options;
-  opt.repo = repo;
+  opt.repo = utils.getRepoDirectory(repo, branch);
   const commits = gitlog(opt);
 
   setState(repo, branch, commits, url);
 }
 
 function fetchFromRepo(repo) {
-  git(`./${repo.name}/`)
+  git(utils.getRepoDirectory(repo.name, repo.branch))
     .silent(true)
     .pull(repo.useSSH ? repo.ssh : repo.http, repo.branch)
     .then(() => {
@@ -122,10 +123,10 @@ function fetchAllFromRepo() {
 }
 
 function cloneIfNotExists(repo) {
-  if (!fs.existsSync(repo.name)) {
+  if (!fs.existsSync(utils.getRepoDirectory(repo.name, repo.branch))) {
     git()
       .silent(true)
-      .clone(repo.useSSH ? repo.ssh : repo.http)
+      .clone(repo.useSSH ? repo.ssh : repo.http, utils.getRepoDirectory(repo.name, repo.branch))
       .then(() => fetchFromRepo(repo))
       .catch((err) => console.error('failed to clone: ', err));
   } else {
