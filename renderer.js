@@ -14,49 +14,48 @@ const options = {
 const lastUpdateDate = {};
 
 function onNotiClick(link) {
-  const childWindow = new BrowserWindow({ width: 800, height: 600 });
+  const childWindow = new BrowserWindow({ show: false, width: 1350, height: 900 });
   childWindow.loadURL(link);
+
+  childWindow.once('ready-to-show', () => childWindow.show());
 }
 
 function render() {
-  function renderRepo(repo, branch, url) {
-    const html = document.createElement('div');
-
-    const title = document.createElement('h1');
-    title.classList.add('ui');
-    title.classList.add('header');
-    title.innerHTML = `${repo} <div class="sub header">${branch}</div>`;
-
-    html.append(title);
-
+  function renderRepo(target, repo, branch, url) {
     if (logs[repo] && logs[repo][branch]) {
       let count = 0;
       let i = 0;
       while (count < 10) {
-        const { subject } = logs[repo][branch][i];
+        const { subject, authorName, authorDate, hash } = logs[repo][branch][i];
         if (subject.indexOf('Merge branch') < 0) {
-          const line = document.createElement('div');
-          const aTag = document.createElement('a');
-          aTag.setAttribute('href', `${url}/commit/${logs[repo][branch][i].hash}`);
-          aTag.setAttribute('target', '_blank');
-          aTag.textContent = subject;
-          line.append(aTag);
-          html.append(line);
+          const line = document.createElement('tr');
+          const td = document.createElement('td');
+          td.textContent = subject;
+          td.addEventListener('click', () => onNotiClick(`${url}/commit/${hash}`));
+
+          const td1 = document.createElement('td');
+          td1.textContent = authorName;
+
+          const td2 = document.createElement('td');
+          td2.textContent = authorDate;
+
+          line.append(td);
+          line.append(td1);
+          line.append(td2);
+
+          target.append(line);
+
           count += 1;
         }
         i += 1;
       }
     }
-    const divider = document.createElement('div');
-    divider.classList.add('ui');
-    divider.classList.add('divider');
-    html.append(divider);
-
-    return html;
+    return '';
   }
-  document.querySelector('#log').innerHTML = '';
-  config.repo.forEach((item) => {
-    document.querySelector('#log').append(renderRepo(item.name, item.branch, item.http));
+  config.repo.forEach((item, index) => {
+    const target = document.querySelector(`#log-table-${index} tbody`);
+    target.innerHTML = '';
+    renderRepo(target, item.name, item.branch, item.http);
   });
 }
 
@@ -133,7 +132,3 @@ function cloneIfNotExists(repo) {
 config.repo.forEach((repo) => cloneIfNotExists(repo));
 
 setInterval(fetchAllFromRepo, 3 * 60 * 1000);
-
-document.querySelector('#notiCheck').addEventListener('click', () => {
-  const noti = new window.Notification('알림 테스트!', { body: '알림이 오는지 확인해보세요!' });
-});
