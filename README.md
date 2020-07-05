@@ -1,5 +1,7 @@
 # Gitlog App
 
+```깃 커밋 메시지 알리미 데스크톱 앱 by ElectronJS```
+
 ## 작동방식
 
 - `config.json` - 여기에 관심있는 repo 정보를 넣어둠 (기본값: 현재 이 레포지토리)
