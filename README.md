@@ -44,7 +44,3 @@ node node_modules/electron-packager/bin/electron-packager.js . gitlog
 #### 노티 메시지 예제
 ![notification](screenshots/pushnotification_v1.0.1.png)
 
-
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
