@@ -38,7 +38,7 @@ function setState(repo, branch, log, url) {
       const logC = log[ind];
       thisDate = new Date(logC.authorDate);
 
-      if (thisDate - lastUpdateDate[repo] > 0) {
+      if (thisDate - lastUpdateDate[`${repo}_${branch}`] > 0) {
         if (logC.subject.indexOf('Merge branch') < 0) {
           const noti = new window.Notification(logC.subject, {
             body: `${logC.authorName}: ${logC.authorDate}`,
