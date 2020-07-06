@@ -56,7 +56,7 @@ const utils = {
           td1.textContent = authorName;
 
           const td2 = document.createElement('td');
-          td2.textContent = moment(authorDate).startOf('hour').fromNow();
+          td2.textContent = moment(authorDate).startOf('minute').fromNow();
           td2.setAttribute('title', moment(authorDate).format('llll'));
 
           line.append(td0);

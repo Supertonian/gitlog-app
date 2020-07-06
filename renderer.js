@@ -25,10 +25,10 @@ function render() {
 function setState(repo, branch, log, url) {
   if (!logs[repo]) {
     logs[repo] = {};
-    lastUpdateDate[repo] = new Date();
   }
   if (!logs[repo][branch]) {
     logs[repo][branch] = [];
+    lastUpdateDate[`${repo}_${branch}`] = new Date();
   }
   if (logs[repo][branch].length > 0) {
     let ind = 0;
@@ -52,7 +52,7 @@ function setState(repo, branch, log, url) {
       }
       ind += 1;
     }
-    lastUpdateDate[repo] = firstLogDate;
+    lastUpdateDate[`${repo}_${branch}`] = firstLogDate;
   }
   logs[repo][branch] = log;
   render();
