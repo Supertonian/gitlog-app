@@ -95,3 +95,4 @@ function cloneIfNotExists(repo) {
 config.repo.forEach((repo) => cloneIfNotExists(repo));
 
 setInterval(fetchAllFromRepo, 3 * 60 * 1000);
+setInterval(render, 1 * 60 * 1000);
