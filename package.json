@@ -4,7 +4,9 @@
   "description": "Gitlog app with notification",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:win": "electron-packager . gitlog --platform=win32 --overwrite",
+    "release": "git add --force dist && standard-version -a"
   },
   "repository": "https://github.com/ZeroStrength/gitlog-app",
   "keywords": [
@@ -16,7 +18,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron-packager": "^15.0.0",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "standard-version": "^9.0.0"
   },
   "dependencies": {
     "electron": "^9.0.5",
