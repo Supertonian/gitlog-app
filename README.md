@@ -5,7 +5,8 @@
 ## 작동방식
 
 - `config.json` - 여기에 관심있는 repo 정보를 넣어둠 (기본값: 현재 이 레포지토리)
-- `npm start` - 프로그램 시작하면 처음에는 관련 repo를 clone 한다. 이후 1분마다 pull 받으며 체크한다.
+- `yarn start` - 프로그램 시작하면 처음에는 관련 repo를 clone 한다. 이후 1분마다 pull 받으며 체크한다.
+- `yarn build:win` - 윈도우 실행 파일(.exe) 생성
 
 ## 사용방법
 
@@ -17,11 +18,11 @@ git clone https://github.com/ZeroStrength/gitlog-app.git
 # Go into the repository
 cd gitlog-app
 # 필요 라이브러리 다운로드
-npm install
+yarn install
 # 실행
-npm start
+yarn start
 # 윈도우 exe로 만들고 싶을 때
-node node_modules/electron-packager/bin/electron-packager.js . gitlog
+yarn build:win
 ```
 
 
