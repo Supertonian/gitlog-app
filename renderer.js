@@ -69,7 +69,9 @@ function saveLog(repo, branch, url) {
 function fetchFromRepo(repo) {
   git(utils.getRepoDirectory(repo.name, repo.branch))
     .silent(true)
-    .pull(repo.useSSH ? repo.ssh : repo.http, repo.branch)
+    .reset('--merge')
+    .checkout(repo.branch)
+    .pull()
     .then(() => {
       saveLog(repo.name, repo.branch, repo.http);
     })
@@ -81,6 +83,9 @@ function fetchAllFromRepo() {
 }
 
 function cloneIfNotExists(repo) {
+  if (!fs.existsSync('repo')) {
+    fs.mkdir('repo', () => console.log('created repo folder'));
+  }
   if (!fs.existsSync(utils.getRepoDirectory(repo.name, repo.branch))) {
     git()
       .silent(true)
