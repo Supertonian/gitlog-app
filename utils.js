@@ -1,10 +1,7 @@
-const moment = require('moment');
-
 const { BrowserWindow } = require('electron').remote;
 
+const { DateTime } = require('luxon');
 const config = require('./config.json');
-
-moment.locale('ko');
 
 const utils = {
   getRepoDirectory: (name, branch) => `repo/${name}_${branch.replace('/', '_')}`,
@@ -50,6 +47,7 @@ const utils = {
 
           const td0 = document.createElement('td');
           td0.textContent = extracted.features;
+          td0.setAttribute('width', '100px');
           if (extracted.colorClass !== '') td0.classList.add(extracted.colorClass);
 
           const td = document.createElement('td');
@@ -58,10 +56,19 @@ const utils = {
 
           const td1 = document.createElement('td');
           td1.textContent = authorName;
+          td1.setAttribute('width', '100px');
 
           const td2 = document.createElement('td');
-          td2.textContent = moment(authorDate).startOf('minute').fromNow();
-          td2.setAttribute('title', moment(authorDate).format('llll'));
+          console.log(authorDate);
+          console.log(typeof authorDate);
+          td2.textContent = DateTime.fromJSDate(new Date(authorDate)).startOf('minute').toRelative();
+          td2.setAttribute(
+            'title',
+            DateTime.fromJSDate(new Date(authorDate)).toISODate() +
+              ' ' +
+              DateTime.fromJSDate(new Date(authorDate)).toISOTime().split('.000')[0],
+          );
+          td2.setAttribute('width', '100px');
 
           line.append(td0);
           line.append(td);
