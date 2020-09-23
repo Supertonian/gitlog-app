@@ -7,10 +7,14 @@ const config = require('./config.json');
 moment.locale('ko');
 
 const utils = {
-  getRepoDirectory: (name, branch) => `repo/${name}_${branch.replace('/', '')}`,
+  getRepoDirectory: (name, branch) => `repo/${name}_${branch.replace('/', '_')}`,
 
   onNotiClick: (link) => {
-    const childWindow = new BrowserWindow({ show: false, width: 1350, height: 900 });
+    const childWindow = new BrowserWindow({
+      show: false,
+      width: 1350,
+      height: 900,
+    });
     childWindow.loadURL(link);
 
     childWindow.once('ready-to-show', () => childWindow.show());
