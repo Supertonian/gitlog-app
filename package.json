@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "electron": "^9.0.5",
+    "electron-windows-store": "^2.1.0",
+    "electron-wix-msi": "^3.0.3",
     "gitlog": "^4.0.0",
     "jquery": "^3.5.1",
     "luxon": "^1.25.0",

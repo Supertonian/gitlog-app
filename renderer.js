@@ -42,6 +42,7 @@ function setState(repo, branch, log, url) {
         if (logC.subject.indexOf('Merge branch') < 0) {
           const noti = new window.Notification(logC.subject, {
             body: `${logC.authorName}: ${logC.authorDate}`,
+            timeoutType: 'never',
           });
           noti.onclick = () => {
             utils.onNotiClick(`${url}/commit/${logC.hash}`);
